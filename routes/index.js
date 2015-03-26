@@ -17,6 +17,11 @@ router.get('/csignup', function(req, res){
 	res.render('csignup', { title: 'Express' });
 });
 
+router.get('/csignin', function(req, res){
+	console.log('heey3');
+	res.render('csignin', { title: 'Express' });
+});
+
 router.post('/signupdone', function(req, res, next){
 	console.log(req.body);
 	var company = new Company(req.body);
@@ -26,6 +31,25 @@ router.post('/signupdone', function(req, res, next){
 			return next(err);
 		}
 		res.json(company);
+	});
+});
+
+
+router.get('/signin/:username/:password', function(req, res){
+	var query = Company.findOne({username : req.param('username')});
+	
+	query.exec(function(err, company){
+		if(err) console.log(err);
+		else{
+			if(company.password == req.param('password')){
+				res.json(company);
+			}
+			else{
+				res.json({
+					problem: "probllemo"
+				});
+			}
+		}
 	});
 });
 

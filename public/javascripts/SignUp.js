@@ -31,7 +31,7 @@ angular.module('signUpModule', ['ui.router'])
 	return o;
 }])
 
-.controller('SignupCtrl', ['$scope', 'company', '$location', function($scope, company, $location){
+.controller('SignupCtrl', ['$scope', 'company', '$state', function($scope, company, $state){
 	$scope.company = company.company;
 	$scope.aa = "Yo";
 	/*if(someError) {return;}*/
@@ -44,12 +44,14 @@ angular.module('signUpModule', ['ui.router'])
 			password: $scope.password
 		});
 		
-		//$location.url('/signupdone');
+		$state.transitionTo('signupdone');
 	};
 	
 	
 }])
 
 .controller('AfterSignupCtrl', ['$scope', 'company', function($scope, company){
-	
+	console.log(company);
+	$scope.var = "good";
+	console.log($scope.var);
 }]);
